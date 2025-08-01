@@ -1,0 +1,22 @@
+.product-card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        .section-title:after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: #0d6efd;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }

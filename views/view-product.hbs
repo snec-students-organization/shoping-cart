@@ -1,0 +1,42 @@
+<div class="container py-5">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {{#each products}}
+    <div class="col">
+      <div class="card h-100 border-0 shadow-sm hover-shadow transition-all">
+        <div class="ratio ratio-1x1 bg-light">
+          <img src="/product-images/{{this.image}}" alt="{{this.name}}" 
+               class="img-fluid p-3 object-fit-contain">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title fs-6 fw-bold text-truncate">{{this.name}}</h5>
+          <p class="card-text text-muted small mb-2 line-clamp-2">{{this.description}}</p>
+          <div class="d-flex justify-content-between align-items-center mt-auto">
+            <span class="text-primary fw-bold">${{this.price}}</span>
+            <button class="btn btn-sm btn-outline-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+<style>
+  .hover-shadow:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+  .transition-all {
+    transition: all 0.2s ease;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .object-fit-contain {
+    object-fit: contain;
+  }
+</style>
+
+

@@ -1,0 +1,22 @@
+<h2>Registered Users</h2>
+{{log users}}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Username</th>
+      <th>User ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+      <tr>
+        <td>{{@index}}</td>
+        <td>{{this.username}}</td>
+        <td>{{this._id}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+

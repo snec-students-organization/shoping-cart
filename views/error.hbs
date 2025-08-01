@@ -1,0 +1,8 @@
+{{!-- views/error.hbs --}}
+<h1>An Error Occurred</h1>
+<p>{{message}}</p>
+{{#if error.stack}}
+<pre>{{error.stack}}</pre>
+{{/if}}
+<a href="/">Back to Home</a>
+

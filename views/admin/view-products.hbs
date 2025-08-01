@@ -1,0 +1,14 @@
+<h2>All Products (Admin View)</h2>
+<ul>
+  {{#each products}}
+  <li style="margin-bottom: 20px;">
+    <h3>{{this.name}}</h3>
+    <p>Price: ${{this.price}}</p>
+    <img src="/product-images/{{this.image}}" alt="{{this.name}}" width="150" />
+    <p>{{this.description}}</p>
+  </li>
+  {{/each}}
+</ul>
+
+<a href="/admin/add-product">Add New Product</a>
+
