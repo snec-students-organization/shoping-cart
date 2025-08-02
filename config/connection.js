@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb+srv://shopuser:Ramees1234@cluster0.abcde.mongodb.net/myDatabase?retryWrites=true&w=majority';
-mongoose.connect(mongoURI);
- // Change to your DB
+const mongoURI = 'mongodb+srv://rameespc17:Ramees1234@cluster0.h9gnra4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Change to your DB
 
 mongoose.connect(mongoURI);
 
