@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb://localhost:27017/your_database_name'; // Change to your DB
+const mongoURI = 'mongodb+srv://shopuser:Ramees1234@cluster0.abcde.mongodb.net/myDatabase?retryWrites=true&w=majority';
+mongoose.connect(mongoURI);
+ // Change to your DB
 
 mongoose.connect(mongoURI);
 
