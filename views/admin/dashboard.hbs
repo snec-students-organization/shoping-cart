@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Admin Dashboard</h1>
+
+  <div class="row">
+    <!-- Products card -->
+    <div class="col-md-6 mb-3">
+      <div class="card shadow-sm border-0">
+        <div class="card-body text-center">
+          <h5 class="card-title">Products</h5>
+          <p class="card-text display-6">{{productCount}}</p>
+          <a href="/admin/view-products" class="btn btn-primary">Manage Products</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users card -->
+    <div class="col-md-6 mb-3">
+      <div class="card shadow-sm border-0">
+        <div class="card-body text-center">
+          <h5 class="card-title">Users</h5>
+          <p class="card-text display-6">{{userCount}}</p>
+          <a href="/admin/users" class="btn btn-primary">Manage Users</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a href="/admin/add-product" class="btn btn-success">+ Add New Product</a>
+  </div>
+</div>

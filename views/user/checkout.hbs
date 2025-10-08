@@ -1,0 +1,16 @@
+<h2>Checkout</h2>
+<form action="/checkout" method="POST">
+  <div class="mb-3">
+    <label>Address</label>
+    <textarea name="address" class="form-control" required></textarea>
+  </div>
+  <div class="mb-3">
+    <label>Payment Method</label>
+    <select name="paymentMethod" class="form-select" required>
+      <option value="COD">Cash on Delivery</option>
+      <option value="Online">Online Payment</option>
+    </select>
+  </div>
+  <h4>Total: ₹ {{total}}</h4>
+  <button type="submit" class="btn btn-primary">Place Order</button>
+</form>

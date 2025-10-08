@@ -6,21 +6,23 @@ const morgan = require('morgan');
 
 const app = express();
 
-// Connect to MongoDB
+// -------------------- DATABASE CONNECTION --------------------
 require('./config/connection');
 
-// Import routes
+// -------------------- ROUTE IMPORTS --------------------
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/user');
-const authRoutes = require('./routes/auth'); // Assuming you created auth routes for login/register
+const authRoutes = require('./routes/auth');
 
-// Security middleware - set various HTTP headers
+// -------------------- MIDDLEWARE SETUP --------------------
+
+// Security headers
 app.use(helmet());
 
-// HTTP request logger middleware
+// Request logger
 app.use(morgan('dev'));
 
-// Set up Handlebars as the view engine, with layout support
+// Handlebars view engine
 const exphbs = require('express-handlebars');
 app.engine(
   'hbs',
@@ -33,39 +35,52 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Serve static files like images, css, js from /public
+// Static files (images, CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware to parse URL-encoded form data (for forms)
+// Parse URL-encoded form data
 app.use(express.urlencoded({ extended: true }));
 
-// Session configuration — replace secret with environment var in production!
+// -------------------- SESSION CONFIG --------------------
 app.use(
   session({
     secret: 'your-secret-key-here-change-this',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Set true if HTTPS
+    cookie: { secure: false }, // Set secure:true only if using HTTPS
   })
 );
 
-// Make session user info available to all views for navbars etc.
+// Make session data available in all views
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
-  // Optionally, set isAdmin flag from session user info
-  res.locals.isAdmin = req.session.user?.isAdmin || false;
+  res.locals.isAdmin = req.session.isAdminLoggedIn || false;
   next();
 });
 
-// Mount auth routes (login/register) before user routes to catch those paths
+// -------------------- ROUTE HANDLING --------------------
+
+// Authentication (login/register)
 app.use('/', authRoutes);
 
-// Mount admin and user routes
+// Admin routes — all admin pages protected with session
 app.use('/admin', adminRoutes);
+
+// User routes (normal users)
 app.use('/', userRoutes);
 
-// 404 handler - for any route not matched above
-app.use((req, res, next) => {
+// Redirect base /admin to login if not logged in
+app.get('/admin', (req, res) => {
+  if (!req.session.isAdminLoggedIn) {
+    return res.redirect('/admin/login');
+  }
+  res.redirect('/admin/dashboard');
+});
+
+// -------------------- ERROR HANDLING --------------------
+
+// 404 Page
+app.use((req, res) => {
   res.status(404).render('404', {
     title: 'Page Not Found',
     isAdmin: res.locals.isAdmin,
@@ -73,11 +88,10 @@ app.use((req, res, next) => {
   });
 });
 
-// General error handling middleware
+// Global error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500);
-  res.render('error', {
+  console.error('Error:', err.stack);
+  res.status(err.status || 500).render('error', {
     message: err.message || 'Internal Server Error',
     error: app.get('env') === 'development' ? err : {},
     title: 'Error',
@@ -86,14 +100,5 @@ app.use((err, req, res, next) => {
   });
 });
 
+// -------------------- EXPORT APP --------------------
 module.exports = app;
-
-
-
-
-
-
-
-
-
-

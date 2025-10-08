@@ -1,0 +1,34 @@
+<h2>My Orders</h2>
+
+{{#if orders.length}}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orders}}
+        <tr>
+          <td>{{this._id}}</td>
+          <td>{{this.date}}</td>
+          <td>
+            <ul>
+              {{#each this.items}}
+                <li>{{this.product.name}} × {{this.quantity}}</li>
+              {{/each}}
+            </ul>
+          </td>
+          <td>₹ {{this.total}}</td>
+          <td>{{this.status}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p>You have not placed any orders yet.</p>
+{{/if}}
